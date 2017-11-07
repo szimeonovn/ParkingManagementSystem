@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import {Http} from '@angular/http';
+import {AppService} from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,15 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+
+  constructor(private appService: AppService) {
+  }
+
+  test(): void {
+    const body = {id: 1, name: 'testtt'};
+    this.appService.callRestPost('test/save', body)
+      .then(response => {
+        console.log(response);
+      });
+  }
 }
