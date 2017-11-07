@@ -1,8 +1,10 @@
 package hu.unideb.rft.parkingmanagement.service.impl;
 
+import hu.unideb.rft.parkingmanagement.entity.Test;
 import hu.unideb.rft.parkingmanagement.repository.TestRepository;
 import hu.unideb.rft.parkingmanagement.service.TestService;
 import hu.unideb.rft.parkingmanagement.vo.TestVO;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +15,17 @@ import javax.transaction.Transactional;
 public class TestServiceImpl implements TestService {
 
     @Autowired
-    private TestService testService;
+    private TestRepository testRepository;
 
     @Autowired
-    private TestRepository testRepository;
+    Mapper mapper;
 
     @Override
     public TestVO save(TestVO testVO) {
-        return testService.save(testVO);
+
+        Test testToSave = mapper.map(testVO, Test.class);
+        Test saved = testRepository.save(testToSave);
+        return mapper.map(saved, TestVO.class);
+
     }
 }
