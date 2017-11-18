@@ -1,1 +1,11 @@
-<button pButton type="button" label="Click" (click)="test()"></button>
+<form (ngSubmit)="test()">
+  <input name="testInput" type="text" pInputText [(ngModel)]="name" required="true"/>
+  <button pButton type="submit" label="Test"></button>
+</form>
+
+
+<div>
+  <p-progressSpinner *ngIf="isLoading"></p-progressSpinner>
+  <div *ngIf="response">{{response.name}}</div>
+</div>
+

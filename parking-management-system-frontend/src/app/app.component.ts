@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {Http} from '@angular/http';
 import {AppService} from './app.service';
 
 @Component({
@@ -9,14 +8,25 @@ import {AppService} from './app.service';
 })
 export class AppComponent {
 
+  response: any;
+  isLoading: boolean;
+  name: number;
+
   constructor(private appService: AppService) {
+    this.isLoading = false;
   }
 
   test(): void {
-    const body = {id: 1, name: 'testtt'};
-    this.appService.callRestPost('test/save', body)
+    this.isLoading = true;
+    const body = {zoneCode: this.name};
+    console.log(body);
+    this.appService.callRestPost('parkingZone/save', body)
       .then(response => {
+        this.isLoading = false;
+        this.response = response;
         console.log(response);
+      }, () => {
+        this.isLoading = false;
       });
   }
 }
