@@ -7,9 +7,8 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class TestVO implements Serializable {
+public class TestVO extends BaseVO {
 
-    private Long id;
     private String name;
 
 }

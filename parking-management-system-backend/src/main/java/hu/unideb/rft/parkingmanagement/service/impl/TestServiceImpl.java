@@ -18,7 +18,7 @@ public class TestServiceImpl implements TestService {
     private TestRepository testRepository;
 
     @Autowired
-    Mapper mapper;
+    private Mapper mapper;
 
     @Override
     public TestVO save(TestVO testVO) {
