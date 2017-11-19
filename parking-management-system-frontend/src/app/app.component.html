@@ -1,11 +1,8 @@
-<form (ngSubmit)="test()">
-  <input name="testInput" type="text" pInputText [(ngModel)]="name" required="true"/>
-  <button pButton type="submit" label="Test"></button>
-</form>
-
+<div class="ui-g-12">
+    <p-dropdown [options]="parkingZones" placeholder="Select a parking zone" [(ngModel)]="selectedParkingZone"></p-dropdown>
+</div>
 
 <div>
   <p-progressSpinner *ngIf="isLoading"></p-progressSpinner>
-  <div *ngIf="response">{{response.name}}</div>
 </div>
 

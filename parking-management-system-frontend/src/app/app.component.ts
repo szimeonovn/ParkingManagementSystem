@@ -1,32 +1,29 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppService} from './app.service';
+import {SelectItem} from 'primeng/primeng';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  response: any;
   isLoading: boolean;
-  name: number;
+  parkingZones: SelectItem[];
+  selectedParkingZone: number;
 
   constructor(private appService: AppService) {
     this.isLoading = false;
+    this.parkingZones = [];
   }
 
-  test(): void {
-    this.isLoading = true;
-    const body = {zoneCode: this.name};
-    console.log(body);
-    this.appService.callRestPost('parkingZone/save', body)
+  ngOnInit(): void {
+    this.appService.callRestGet('parkingZone/list')
       .then(response => {
         this.isLoading = false;
-        this.response = response;
-        console.log(response);
-      }, () => {
-        this.isLoading = false;
+        this.parkingZones = response.map(parkingZone => ({label: parkingZone.zoneCode, value: parkingZone.id}));
       });
   }
+
 }

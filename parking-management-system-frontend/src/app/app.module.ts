@@ -2,12 +2,13 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {ButtonModule, InputTextModule, ProgressSpinnerModule} from 'primeng/primeng';
+import {ButtonModule, DropdownModule, InputTextModule, ProgressSpinnerModule} from 'primeng/primeng';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpModule} from '@angular/http';
+
 import {AppService} from './app.service';
 import {FormsModule} from '@angular/forms';
 import {ParkingTerminalComponent} from './parking-terminal/parking-terminal.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,13 +16,14 @@ import {ParkingTerminalComponent} from './parking-terminal/parking-terminal.comp
     ParkingTerminalComponent
   ],
   imports: [
-    HttpModule,
+    HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
     ButtonModule,
     ProgressSpinnerModule,
     InputTextModule,
-    FormsModule
+    FormsModule,
+    DropdownModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent]
