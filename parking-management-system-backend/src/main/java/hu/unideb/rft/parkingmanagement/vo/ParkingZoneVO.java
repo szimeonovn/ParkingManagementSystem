@@ -8,4 +8,6 @@ import lombok.Setter;
 public class ParkingZoneVO extends BaseVO {
 
     private String zoneCode;
+    private Integer parkingCostPerHour;
+
 }

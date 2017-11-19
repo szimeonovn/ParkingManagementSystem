@@ -1,24 +1,27 @@
 package hu.unideb.rft.parkingmanagement.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 import java.io.Serializable;
 
-@Data
 @Entity
+@Table(name = "PARKING_ZONE")
+@Getter
+@Setter
 public class ParkingZone implements Serializable {
 
     @Id
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ")
     @SequenceGenerator(name = "SEQ", sequenceName = "PARKING_ZONE_SEQ")
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "ZONE_CODE", unique = true, nullable = false)
     private String zoneCode;
+
+    @Column(name = "PARKING_COST_PER_HOUR")
+    private Integer parkingCostPerHour;
+
 }
