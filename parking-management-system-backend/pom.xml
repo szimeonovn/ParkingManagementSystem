@@ -82,11 +82,11 @@
             <version>5.4.0</version>
         </dependency>
 
-        <!--<dependency>-->
-        <!--<groupId>org.hibernate</groupId>-->
-        <!--<artifactId>hibernate-java8</artifactId>-->
-        <!--<version>5.1.0.Final</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-java8</artifactId>
+            <version>5.1.0.Final</version>
+        </dependency>
 
         <!--Spring data JPA, default tomcat pool, exclude it -->
         <dependency>

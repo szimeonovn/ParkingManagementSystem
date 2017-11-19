@@ -57,9 +57,12 @@ public class ParkingServiceImpl implements ParkingService {
 
         ParkingZone parkingZone = parkingZoneRepository.findOne(parkingVO.getParkingZoneId());
 
+        if (parkingZone == null) {
+            return "There is no parking zone with the gived id " + parkingVO.getParkingZoneId() + "!";
+        }
+
         Parking parking = new Parking();
         parking.setCar(parkingCarCandidate);
-        parking.setParkingZone(parkingZone);
         parking.setParkingZone(parkingZone);
         parking.setParkingStart(LocalDateTime.now());
         Parking savedParking = parkingRepository.save(parking);
