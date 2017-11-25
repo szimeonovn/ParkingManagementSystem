@@ -1,3 +1,24 @@
-<p>
-  parking-terminal works!
-</p>
+<div class="ui-g-12 ui-md-12">
+  <p-selectButton [options]="parkingZones" [(ngModel)]="selectedParkingZone"></p-selectButton>
+</div>
+<div class="ui-g-12 ui-md-12">
+  <p-inputMask [(ngModel)]="licensePlateNumber" mask="aaa-999"></p-inputMask>
+</div>
+<div>
+  <button  pButton type="button" label="Start parking" (click)="startParking()"></button>
+  <button  pButton type="button" label="Check parking" (click)="checkParking()"></button>
+</div>
+
+<p-dialog *ngIf="displayParkingInfoDialog" header="Parking information" [(visible)]="displayParkingInfoDialog">
+   <div>Parking time: {{parkingTime}} minutes</div>
+    <div>Parking price: {{parkingPrice}} HUF.-</div>
+  <button  pButton type="button" label="Pay" (click)="stopParking()"></button>
+
+</p-dialog>
+
+<div>
+  <p-progressSpinner *ngIf="isLoading"></p-progressSpinner>
+</div>
+
+<p-growl [(value)]="msgs"></p-growl>
+

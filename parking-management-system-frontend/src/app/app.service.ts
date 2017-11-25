@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 export class AppService {
 
   private static readonly BASE_URL = 'http://localhost:8080/rest/';
+  // private static readonly BASE_URL = 'http://25.72.35.78:8080/rest/';
 
   constructor(private http: HttpClient) {
   }
@@ -31,7 +32,7 @@ export class AppService {
         .toPromise().then(response => {
         resolve(response);
       }).catch(reason => {
-        console.error(reason.error.text);
+        console.error(reason);
         reject(reason);
       });
     });
