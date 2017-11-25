@@ -9,6 +9,11 @@ import {AppService} from './app.service';
 import {FormsModule} from '@angular/forms';
 import {ParkingTerminalComponent} from './parking-terminal/parking-terminal.component';
 import {HttpClientModule} from '@angular/common/http';
+import {SelectButtonModule} from "primeng/components/selectbutton/selectbutton";
+import {InputMaskModule} from "primeng/components/inputmask/inputmask";
+import {GrowlModule} from "primeng/components/growl/growl";
+import {DialogModule} from "primeng/components/dialog/dialog";
+import {MessageService} from "primeng/components/common/messageservice";
 
 @NgModule({
   declarations: [
@@ -23,9 +28,13 @@ import {HttpClientModule} from '@angular/common/http';
     ProgressSpinnerModule,
     InputTextModule,
     FormsModule,
-    DropdownModule
+    DropdownModule,
+    SelectButtonModule,
+    InputMaskModule,
+    GrowlModule,
+    DialogModule
   ],
-  providers: [AppService],
+  providers: [AppService, MessageService],
   bootstrap: [AppComponent]
 })
 

@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {SelectItem} from "primeng/components/common/selectitem";
+import {AppService} from "../app.service";
+import {Message} from "primeng/components/common/message";
+import {MessageService} from "primeng/components/common/messageservice";
 
 @Component({
   selector: 'app-parking-terminal',
@@ -6,10 +10,70 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./parking-terminal.component.css']
 })
 export class ParkingTerminalComponent implements OnInit {
+  isLoading: boolean;
+  parkingZones: SelectItem[];
+  selectedParkingZone: number;
+  licensePlateNumber: string;
+  msgs: Message[];
+  displayParkingInfoDialog = false;
+  parkingPrice: number;
+  parkingTime: number;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private appService: AppService, private growlMessage: MessageService) {
+    this.isLoading = false;
+    this.parkingZones = [];
+    this.msgs = [];
   }
 
+  ngOnInit() {
+
+    this.appService.callRestGet('parkingZone/list').then(response => {
+      this.isLoading = false;
+      this.parkingZones = response.map(parkingZone => ({label: parkingZone.zoneCode, value: parkingZone.id}));
+    });
+  }
+
+  startParking(): void {
+    this.appService.callRestPost('parking/startParking',
+      {licensePlateNumber: this.licensePlateNumber, parkingZoneId: this.selectedParkingZone})
+      .then(response => {
+        this.growlMessage.add({
+          severity: 'success',
+          summary: 'Parking successful',
+          detail: `Parking started for ${response.licensePlateNumber} at ${response.parkingStart}`
+        });
+
+      }).catch(
+      error => {
+        console.log(error);
+        this.growlMessage.add({
+          severity: 'error',
+          summary: 'Parking failed',
+          detail: `${error.error.text}`
+        })
+      }
+    );
+  }
+
+  checkParking(): void {
+    this.appService.callRestGet(`parking/checkParking/${this.licensePlateNumber}`)
+      .then(response => {
+        this.displayParkingInfoDialog = true;
+        console.log(response);
+        this.parkingPrice = response.parkingCostToPay;
+        this.parkingTime = response.parkingTime;
+      })
+  }
+
+  stopParking(): void {
+    this.appService.callRestPost(`parking/stopParking/${this.licensePlateNumber}`)
+      .then(response => {
+        this.displayParkingInfoDialog = false;
+        this.growlMessage.add({
+          severity: 'success',
+          summary: 'Parking paid successfully',
+          detail: `Parking stopped for ${response.licensePlateNumber} at ${response.parkingEnd}`
+        });
+      });
+  }
 }
