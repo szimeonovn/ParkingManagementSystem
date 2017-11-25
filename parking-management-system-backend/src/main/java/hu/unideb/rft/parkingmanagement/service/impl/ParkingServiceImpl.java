@@ -51,7 +51,7 @@ public class ParkingServiceImpl implements ParkingService {
 
         if (parkingCarCandidate == null) {
             Car carToSave = new Car();
-            carToSave.setLicensePlateNumber(parkingVO.getLicensePlateNumber());
+            carToSave.setLicensePlateNumber(parkingVO.getLicensePlateNumber().toUpperCase());
             parkingCarCandidate = carRepository.save(carToSave);
         }
 
@@ -72,7 +72,7 @@ public class ParkingServiceImpl implements ParkingService {
 
     @Override
     public Object checkParking(String licensePlateNumber) {
-        Car car = carRepository.findByLicensePlateNumber(licensePlateNumber);
+        Car car = carRepository.findByLicensePlateNumber(licensePlateNumber.toUpperCase());
         if (car == null) {
             return "There is no parking car with " + licensePlateNumber + " license plate number!";
         }
@@ -98,7 +98,7 @@ public class ParkingServiceImpl implements ParkingService {
 
     @Override
     public Object stopParking(String licensePlateNumber) {
-        Car car = carRepository.findByLicensePlateNumber(licensePlateNumber);
+        Car car = carRepository.findByLicensePlateNumber(licensePlateNumber.toUpperCase());
 
         Parking parking = parkingRepository.findByCarAndParkingEndIsNull(car);
 
