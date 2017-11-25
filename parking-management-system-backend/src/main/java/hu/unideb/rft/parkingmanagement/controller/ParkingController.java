@@ -18,7 +18,7 @@ public class ParkingController {
     @PostMapping("/startParking")
     public ResponseEntity<Object> startParking(@RequestBody ParkingVO parkingVO) {
         if (parkingVO.getLicensePlateNumber() == null) {
-            return new ResponseEntity<>("licensePlateNumber most not be null!", HttpStatus.OK);
+            return new ResponseEntity<>("licensePlateNumber must not be null!", HttpStatus.OK);
         }
 
         if (parkingVO.getParkingZoneId() == null) {
