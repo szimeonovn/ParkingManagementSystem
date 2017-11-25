@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SelectItem} from "primeng/components/common/selectitem";
 import {AppService} from "../app.service";
 import {Message} from "primeng/components/common/message";
+import {MessageService} from "primeng/components/common/messageservice";
 
 @Component({
   selector: 'app-parking-terminal',
@@ -18,7 +19,7 @@ export class ParkingTerminalComponent implements OnInit {
   parkingPrice: number;
   parkingTime: number;
 
-  constructor(private appService: AppService) {
+  constructor(private appService: AppService, private growlMessage: MessageService) {
     this.isLoading = false;
     this.parkingZones = [];
     this.msgs = [];
@@ -36,7 +37,7 @@ export class ParkingTerminalComponent implements OnInit {
     this.appService.callRestPost('parking/startParking',
       {licensePlateNumber: this.licensePlateNumber, parkingZoneId: this.selectedParkingZone})
       .then(response => {
-        this.msgs.push({
+        this.growlMessage.add({
           severity: 'success',
           summary: 'Parking successful',
           detail: `Parking started for ${response.licensePlateNumber} at ${response.parkingStart}`
@@ -45,7 +46,7 @@ export class ParkingTerminalComponent implements OnInit {
       }).catch(
       error => {
         console.log(error);
-        this.msgs.push({
+        this.growlMessage.add({
           severity: 'error',
           summary: 'Parking failed',
           detail: `${error.error.text}`
@@ -68,7 +69,7 @@ export class ParkingTerminalComponent implements OnInit {
     this.appService.callRestPost(`parking/stopParking/${this.licensePlateNumber}`)
       .then(response => {
         this.displayParkingInfoDialog = false;
-        this.msgs.push({
+        this.growlMessage.add({
           severity: 'success',
           summary: 'Parking paid successfully',
           detail: `Parking stopped for ${response.licensePlateNumber} at ${response.parkingEnd}`
