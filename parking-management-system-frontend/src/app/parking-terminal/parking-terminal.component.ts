@@ -18,6 +18,7 @@ export class ParkingTerminalComponent implements OnInit {
   displayParkingInfoDialog = false;
   parkingPrice: number;
   parkingTime: number;
+  parkingPasses: any[];
 
   constructor(private appService: AppService, private growlMessage: MessageService) {
     this.isLoading = false;
@@ -31,6 +32,7 @@ export class ParkingTerminalComponent implements OnInit {
       this.isLoading = false;
       this.parkingZones = response.map(parkingZone => ({label: parkingZone.zoneCode, value: parkingZone.id}));
     });
+    this.listParkingPassType();
   }
 
   startParking(): void {
@@ -75,5 +77,14 @@ export class ParkingTerminalComponent implements OnInit {
           detail: `Parking stopped for ${response.licensePlateNumber} at ${response.parkingEnd}`
         });
       });
+  }
+
+  listParkingPassType(): void {
+    this.appService.callRestGet('parkingPassType/list')
+      .then(response => {
+
+        this.parkingPasses = response;
+        console.log(this.parkingPasses);
+      })
   }
 }

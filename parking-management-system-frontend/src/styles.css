@@ -1,1 +1,70 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  display: block;
+}
+
+.outerGrid {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.innerGrid {
+  background-color: darkseagreen;
+  opacity: 0.95;
+  width: 500px;
+}
+
+body::after {
+  content: "";
+  background: url('parking-multi-storey-car-park.jpg');
+  opacity: 0.75;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.ui-selectbutton .ui-button.ui-state-default {
+  height: 80px;
+  width: 80px;
+}
+
+#squareSelectButton {
+  display: flex;
+  justify-content: center;
+}
+
+.font {
+  font-weight: 600;
+  font-size: large;
+  color: whitesmoke;
+  font-family: Roboto;
+  display: flex;
+  justify-content: center;
+}
+
+.passFont {
+  color: red;
+  font-family: Roboto;
+  font-weight: 800;
+  display: flex;
+  justify-content: center;
+  margin-top: 1em
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.ui-inputtext {
+  text-align: center;
+  font-weight: 800;
+}
+
+.ui-button-text-only .ui-button-text {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
