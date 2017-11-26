@@ -24,19 +24,19 @@ import java.time.temporal.ChronoUnit;
 public class ParkingServiceImpl implements ParkingService {
 
     @Autowired
-    CarService carService;
+    private CarService carService;
 
     @Autowired
-    CarRepository carRepository;
+    private CarRepository carRepository;
 
     @Autowired
-    ParkingRepository parkingRepository;
+    private ParkingRepository parkingRepository;
 
     @Autowired
-    ParkingZoneRepository parkingZoneRepository;
+    private ParkingZoneRepository parkingZoneRepository;
 
     @Autowired
-    Mapper mapper;
+    private Mapper mapper;
 
     @Override
     public Object startParking(ParkingVO parkingVO) {

@@ -4,8 +4,8 @@ import {HttpClient} from '@angular/common/http';
 @Injectable()
 export class AppService {
 
-  private static readonly BASE_URL = 'http://localhost:8080/rest/';
-  // private static readonly BASE_URL = 'http://25.72.35.78:8080/rest/';
+  // private static readonly BASE_URL = 'http://localhost:8080/rest/';
+  private static readonly BASE_URL = 'http://atlantissoftwareinc.ddns.net:8080/rest/';
 
   constructor(private http: HttpClient) {
   }
