@@ -14,12 +14,11 @@ public class Parking {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ")
-    @SequenceGenerator(name = "SEQ", sequenceName = "PARKING_SEQ")
+    @GeneratedValue
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "CAR_ID")
+    @JoinColumn(name = "CAR_ID", nullable = false)
     private Car car;
 
     @ManyToOne
