@@ -28,7 +28,7 @@ public class ParkingZoneController {
         }
     }
 
-    @GetMapping("list")
+    @GetMapping("/list")
     public List<ParkingZoneVO> list() {
         return parkingZoneService.list();
     }

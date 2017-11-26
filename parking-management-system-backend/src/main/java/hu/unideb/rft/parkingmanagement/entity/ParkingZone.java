@@ -14,8 +14,7 @@ public class ParkingZone implements Serializable {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ")
-    @SequenceGenerator(name = "SEQ", sequenceName = "PARKING_ZONE_SEQ")
+    @GeneratedValue
     private Long id;
 
     @Column(name = "ZONE_CODE", unique = true, nullable = false)

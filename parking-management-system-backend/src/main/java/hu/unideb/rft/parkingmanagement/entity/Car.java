@@ -13,8 +13,7 @@ public class Car {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ")
-    @SequenceGenerator(name = "SEQ", sequenceName = "CAR_SEQ")
+    @GeneratedValue
     private Long id;
 
     @Column(name = "LICENSE_PLATE_NUMBER", unique = true, nullable = false)
