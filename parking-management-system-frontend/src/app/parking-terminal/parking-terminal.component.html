@@ -1,24 +1,42 @@
-<div class="ui-g-12 ui-md-12">
-  <p-selectButton [options]="parkingZones" [(ngModel)]="selectedParkingZone"></p-selectButton>
+<p-header></p-header>
+<div class="outerGrid">
+  <div class="ui-g-12 ui-md-12 innerGrid">
+    <form>
+      <p class="font">Select a parking zone</p>
+
+      <div id="squareSelectButton" class="ui-g-12 ui-md-12">
+        <p-selectButton name="parkingZone" [options]="parkingZones" [(ngModel)]="selectedParkingZone"></p-selectButton>
+      </div>
+      <div class="ui-g-12 ui-md-12">
+        <p class="font">Please enter your license plate number</p>
+
+        <p-inputMask class="center" name="licencePlate" [(ngModel)]="licensePlateNumber" mask="aaa-999"></p-inputMask>
+        <a class="passFont">Want to buy a pass? Choose how long you need.</a>
+      </div>
+      <p-dialog *ngIf="displayParkingInfoDialog" header="Parking information" [width]="400" [(visible)]="displayParkingInfoDialog">
+        <div  class="ui-g-12">
+          <div class="ui-g-10 ui-g-nopad" style="margin-top: 13px;">
+            <div class="ui-g-10">Parking time: {{parkingTime}}minutes</div>
+            <div class="ui-g-10">Parking price: {{parkingPrice}}HUF</div>
+          </div>
+          <div class=" ui-g-2 center" >
+            <button pButton type="button" label="Pay" (click)="stopParking()"></button>
+          </div>
+        </div>
+      </p-dialog>
+
+      <div>
+        <p-progressSpinner *ngIf="isLoading"></p-progressSpinner>
+      </div>
+
+      <p-growl [(value)]="msgs"></p-growl>
+
+    </form>
+    <div class="ui-g-12 ui-md-12 center">
+      <button pButton type="button" label="Start parking" (click)="startParking()"></button>
+      <button pButton type="button" label="Check parking" (click)="checkParking()"></button>
+    </div>
+
+  </div>
+
 </div>
-<div class="ui-g-12 ui-md-12">
-  <p-inputMask [(ngModel)]="licensePlateNumber" mask="aaa-999"></p-inputMask>
-</div>
-<div>
-  <button  pButton type="button" label="Start parking" (click)="startParking()"></button>
-  <button  pButton type="button" label="Check parking" (click)="checkParking()"></button>
-</div>
-
-<p-dialog *ngIf="displayParkingInfoDialog" header="Parking information" [(visible)]="displayParkingInfoDialog">
-   <div>Parking time: {{parkingTime}} minutes</div>
-    <div>Parking price: {{parkingPrice}} HUF.-</div>
-  <button  pButton type="button" label="Pay" (click)="stopParking()"></button>
-
-</p-dialog>
-
-<div>
-  <p-progressSpinner *ngIf="isLoading"></p-progressSpinner>
-</div>
-
-<p-growl [(value)]="msgs"></p-growl>
-

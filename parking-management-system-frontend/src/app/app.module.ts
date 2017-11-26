@@ -14,6 +14,7 @@ import {InputMaskModule} from "primeng/components/inputmask/inputmask";
 import {GrowlModule} from "primeng/components/growl/growl";
 import {DialogModule} from "primeng/components/dialog/dialog";
 import {MessageService} from "primeng/components/common/messageservice";
+import {ContextMenu, ContextMenuModule} from "primeng/components/contextmenu/contextmenu";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,9 @@ import {MessageService} from "primeng/components/common/messageservice";
     SelectButtonModule,
     InputMaskModule,
     GrowlModule,
-    DialogModule
+    DialogModule,
+    ContextMenuModule
+
   ],
   providers: [AppService, MessageService],
   bootstrap: [AppComponent]
