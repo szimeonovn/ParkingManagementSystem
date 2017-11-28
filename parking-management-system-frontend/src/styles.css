@@ -5,7 +5,7 @@ body {
 .outerGrid {
   display: flex;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .innerGrid {
@@ -31,15 +31,10 @@ body::after {
   width: 80px;
 }
 
-#squareSelectButton {
-  display: flex;
-  justify-content: center;
-}
-
 .font {
   font-weight: 600;
   font-size: large;
-  color: whitesmoke;
+  color: #156090;
   font-family: Roboto;
   display: flex;
   justify-content: center;

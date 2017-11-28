@@ -4,14 +4,14 @@
     <form>
       <p class="font">Select a parking zone</p>
 
-      <div id="squareSelectButton" class="ui-g-12 ui-md-12">
+      <div  style="display: flex; justify-content: center " class="ui-g-12 ui-md-12">
         <p-selectButton name="parkingZone" [options]="parkingZones" [(ngModel)]="selectedParkingZone"></p-selectButton>
       </div>
       <div class="ui-g-12 ui-md-12">
         <p class="font">Please enter your license plate number</p>
 
         <p-inputMask class="center" name="licencePlate" [(ngModel)]="licensePlateNumber" mask="aaa-999"></p-inputMask>
-        <a class="passFont">Want to buy a pass? Choose how long you need.</a>
+        <!--<button type="button" label="Want to buy a pass? Choose how long you need." pButton class="passFont"></button>-->
       </div>
       <p-dialog *ngIf="displayParkingInfoDialog" header="Parking information" [width]="400" [(visible)]="displayParkingInfoDialog">
         <div  class="ui-g-12">
@@ -31,11 +31,24 @@
 
       <p-growl [(value)]="msgs"></p-growl>
 
-    </form>
     <div class="ui-g-12 ui-md-12 center">
       <button pButton type="button" label="Start parking" (click)="startParking()"></button>
       <button pButton type="button" label="Check parking" (click)="checkParking()"></button>
     </div>
+      <div class="ui-g-12">
+        <p class="font" style="color: yellow" >Want to buy a pass? Choose how long you need.</p>
+      </div>
+
+      <div style="display: flex; justify-content: center; padding-top: 0" class="ui-g-12 ui-md-12">
+        <p-selectButton (click)="buyPass()" name="parkingPass" [options]="parkingPasses" [(ngModel)]="selectedParkingPass"></p-selectButton>
+      </div>
+      <p-dialog *ngIf="displayPassDialog" header="Buy a pass" [width]="400" [(visible)]="displayPassDialog">
+        <div  class="ui-g-12">
+
+        </div>
+        <button label="Buy" pButton (click)="savePass()"></button>
+      </p-dialog>
+    </form>
 
   </div>
 

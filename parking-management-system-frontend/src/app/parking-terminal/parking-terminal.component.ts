@@ -18,22 +18,30 @@ export class ParkingTerminalComponent implements OnInit {
   displayParkingInfoDialog = false;
   parkingPrice: number;
   parkingTime: number;
-  parkingPasses: any[];
+  parkingPasses: SelectItem[];
+  selectedParkingPass: number;
+  displayPassDialog = false;
+  validityTime: number;
 
   constructor(private appService: AppService, private growlMessage: MessageService) {
     this.isLoading = false;
     this.parkingZones = [];
+    this.parkingPasses = [];
     this.msgs = [];
   }
 
   ngOnInit() {
+    this.listParkingZones();
+    this.listParkingPassType();
+  }
 
+  listParkingZones(): void {
     this.appService.callRestGet('parkingZone/list').then(response => {
       this.isLoading = false;
       this.parkingZones = response.map(parkingZone => ({label: parkingZone.zoneCode, value: parkingZone.id}));
     });
-    this.listParkingPassType();
   }
+
 
   startParking(): void {
     this.appService.callRestPost('parking/startParking',
@@ -82,9 +90,37 @@ export class ParkingTerminalComponent implements OnInit {
   listParkingPassType(): void {
     this.appService.callRestGet('parkingPassType/list')
       .then(response => {
-
-        this.parkingPasses = response;
+        this.parkingPasses = response.map(parkingPass => ({label: parkingPass.name, value: parkingPass.validityTime}));
         console.log(this.parkingPasses);
+        this.validityTime = response.validityTime;
       })
+  }
+
+  buyPass(): void {
+    this.displayPassDialog = true;
+  }
+
+  savePass(): void {
+    this.appService.callRestPost('parkingPass/buy',
+      {
+        licensePlateNumber: this.licensePlateNumber,
+        parkingZoneId: this.selectedParkingZone,
+        validityTime: this.validityTime
+      }).then(response => {
+      this.growlMessage.add({
+        severity: 'success',
+        summary: 'Pass buyed successfully',
+        detail: `Pass buyed for ${response.licensePlateNumber} in ${response.selectedParkingZone}`
+      });
+    }).catch(
+      error => {
+        console.log(error);
+        this.growlMessage.add({
+          severity: 'error',
+          summary: 'Buying pass failed',
+          detail: `${error.error.text}`
+        })
+      }
+    );
   }
 }
