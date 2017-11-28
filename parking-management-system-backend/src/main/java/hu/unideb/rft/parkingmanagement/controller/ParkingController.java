@@ -28,14 +28,17 @@ public class ParkingController {
         return new ResponseEntity<>(parkingService.startParking(parkingVO), HttpStatus.OK);
     }
 
-    @GetMapping("/checkParking/{licensePlateNumber}")
-    public ResponseEntity<Object> checkParking(@PathVariable String licensePlateNumber) {
-
-        if (licensePlateNumber == null) {
+    @PostMapping("/checkParking")
+    public ResponseEntity<Object> checkParking(@RequestBody ParkingVO parkingVO) {
+        if (parkingVO.getLicensePlateNumber() == null) {
             return new ResponseEntity<>("licensePlateNumber must not be null!", HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(parkingService.checkParking(licensePlateNumber), HttpStatus.OK);
+        if (parkingVO.getParkingZoneId() == null) {
+            return new ResponseEntity<>("parkingZoneId must not be null!", HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(parkingService.checkParking(parkingVO), HttpStatus.OK);
     }
 
     @PostMapping("/stopParking/{licensePlateNumber}")
