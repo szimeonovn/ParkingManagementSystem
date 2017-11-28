@@ -1,27 +1,30 @@
 <p-header></p-header>
 <div class="outerGrid">
   <div class="ui-g-12 ui-md-12 innerGrid">
-    <form>
+    <form #parkingTerminalForm="ngForm">
       <p class="font">Select a parking zone</p>
 
-      <div  style="display: flex; justify-content: center " class="ui-g-12 ui-md-12">
-        <p-selectButton name="parkingZone" [options]="parkingZones" [(ngModel)]="selectedParkingZone"></p-selectButton>
+      <div style="display: flex; justify-content: center " class="ui-g-12 ui-md-12">
+        <p-selectButton [required]="true" name="parkingZone" [options]="parkingZones" [(ngModel)]="selectedParkingZone"></p-selectButton>
       </div>
       <div class="ui-g-12 ui-md-12">
         <p class="font">Please enter your license plate number</p>
 
-        <p-inputMask class="center" name="licencePlate" [(ngModel)]="licensePlateNumber" mask="aaa-999"></p-inputMask>
-        <!--<button type="button" label="Want to buy a pass? Choose how long you need." pButton class="passFont"></button>-->
+        <p-inputMask #licensePlate="ngModel"  [required]="true" class="center" name="licencePlate" [(ngModel)]="licensePlateNumber" mask="aaa-999"></p-inputMask>
       </div>
       <p-dialog *ngIf="displayParkingInfoDialog" header="Parking information" [width]="400" [(visible)]="displayParkingInfoDialog">
         <div  class="ui-g-12">
           <div class="ui-g-10 ui-g-nopad" style="margin-top: 13px;">
-            <div class="ui-g-10">Parking time: {{parkingTime}}minutes</div>
-            <div class="ui-g-10">Parking price: {{parkingPrice}}HUF</div>
+            <div *ngIf="parkingPrice === 0" class="ui-g-10" style="color:green; font-weight: bold">You have a valid parking pass!</div>
+            <div *ngIf="parkingPrice !== 0" class="ui-g-10">Parking time: {{parkingTime}}minutes</div>
+            <div class="ui-g-10">Parking price: {{parkingPrice}} HUF</div>
           </div>
-          <div class=" ui-g-2 center" >
+          <div *ngIf="parkingPrice !== 0; else okButton" class="ui-g-2 center">
             <button pButton type="button" label="Pay" (click)="stopParking()"></button>
           </div>
+          <ng-template #okButton>
+            <button pButton type="button" label="Ok" (click)="closeParkingInfoDialog()"></button>
+          </ng-template>
         </div>
       </p-dialog>
 
@@ -32,21 +35,28 @@
       <p-growl [(value)]="msgs"></p-growl>
 
     <div class="ui-g-12 ui-md-12 center">
-      <button pButton type="button" label="Start parking" (click)="startParking()"></button>
-      <button pButton type="button" label="Check parking" (click)="checkParking()"></button>
+      <button pButton type="button" label="Start parking" (click)="startParking()" [disabled]="!parkingTerminalForm.form.valid"></button>
+      <button pButton type="button" label="Check parking" (click)="checkParking()" [disabled]="!licensePlate.valid"></button>
     </div>
       <div class="ui-g-12">
-        <p class="font" style="color: yellow" >Want to buy a pass? Choose how long you need.</p>
+        <p class="font" style="color:#eeeeee" >Want to buy a pass?</p>
+        <p class="font" style="color: #eeeeee;">Choose a zone and how long you need!</p>
       </div>
 
       <div style="display: flex; justify-content: center; padding-top: 0" class="ui-g-12 ui-md-12">
         <p-selectButton (click)="buyPass()" name="parkingPass" [options]="parkingPasses" [(ngModel)]="selectedParkingPass"></p-selectButton>
       </div>
-      <p-dialog *ngIf="displayPassDialog" header="Buy a pass" [width]="400" [(visible)]="displayPassDialog">
+      <p-dialog *ngIf="displayPassDialog" header="Buy a pass" [width]="500" [(visible)]="displayPassDialog">
         <div  class="ui-g-12">
+          <div class="ui-g-10 ui-g-nopad" style="margin-top: 13px;" >
+            <div  class="ui-g-10">Chosen pass costs {{selectedParkingPass.price}} HUF. <br>Are you sure you want to buy it?</div>
+          </div>
+        <div class=" ui-g-2 center">
+          <button label="Buy" pButton (click)="savePass()"></button>
+        </div>
 
         </div>
-        <button label="Buy" pButton (click)="savePass()"></button>
+
       </p-dialog>
     </form>
 

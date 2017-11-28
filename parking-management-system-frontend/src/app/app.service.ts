@@ -5,7 +5,10 @@ import {HttpClient} from '@angular/common/http';
 export class AppService {
 
   // private static readonly BASE_URL = 'http://localhost:8080/rest/';
-  private static readonly BASE_URL = 'http://atlantissoftwareinc.ddns.net:8080/rest/';
+  // private static readonly BASE_URL = 'http://atlantissoftwareinc.ddns.net:' +
+  //   '8080/rest/';
+  private static readonly BASE_URL = 'http://192.168.33.25:' +
+    '8080/rest/';
 
   constructor(private http: HttpClient) {
   }

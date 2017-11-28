@@ -34,7 +34,8 @@ body::after {
 .font {
   font-weight: 600;
   font-size: large;
-  color: #156090;
+  /*color: #156090;*/
+  color: darkslategrey;
   font-family: Roboto;
   display: flex;
   justify-content: center;

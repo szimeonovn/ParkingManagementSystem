@@ -3,6 +3,7 @@ import {SelectItem} from "primeng/components/common/selectitem";
 import {AppService} from "../app.service";
 import {Message} from "primeng/components/common/message";
 import {MessageService} from "primeng/components/common/messageservice";
+import {isNullOrUndefined} from "util";
 
 @Component({
   selector: 'app-parking-terminal',
@@ -19,9 +20,11 @@ export class ParkingTerminalComponent implements OnInit {
   parkingPrice: number;
   parkingTime: number;
   parkingPasses: SelectItem[];
-  selectedParkingPass: number;
-  displayPassDialog = false;
+  selectedParkingPass: any;
+  displayPassDialog : boolean;
   validityTime: number;
+  passPrice: number;
+  passType: string;
 
   constructor(private appService: AppService, private growlMessage: MessageService) {
     this.isLoading = false;
@@ -31,9 +34,21 @@ export class ParkingTerminalComponent implements OnInit {
   }
 
   ngOnInit() {
+    isNullOrUndefined
     this.listParkingZones();
     this.listParkingPassType();
   }
+
+  // get selectedParkingPass(): string {
+  //   return this._selectedParkingPass;
+  // }
+  //
+  // set selectedParkingPass(newPass: string) {
+  //   this._selectedParkingPass = newPass;
+  //   const selectedPass = this.parkingPasses.find(pass => pass.label === newPass).value;
+  //   this.passPrice = selectedPass.price;
+  //
+  // }
 
   listParkingZones(): void {
     this.appService.callRestGet('parkingZone/list').then(response => {
@@ -66,7 +81,7 @@ export class ParkingTerminalComponent implements OnInit {
   }
 
   checkParking(): void {
-    this.appService.callRestGet(`parking/checkParking/${this.licensePlateNumber}`)
+    this.appService.callRestPost('parking/checkParking', {licensePlateNumber: this.licensePlateNumber, parkingZoneId: this.selectedParkingZone})
       .then(response => {
         this.displayParkingInfoDialog = true;
         console.log(response);
@@ -90,9 +105,11 @@ export class ParkingTerminalComponent implements OnInit {
   listParkingPassType(): void {
     this.appService.callRestGet('parkingPassType/list')
       .then(response => {
-        this.parkingPasses = response.map(parkingPass => ({label: parkingPass.name, value: parkingPass.validityTime}));
+        console.log(response);
+        this.parkingPasses = response.map(parkingPass => ({label: parkingPass.name, value: parkingPass}));
+
         console.log(this.parkingPasses);
-        this.validityTime = response.validityTime;
+        // this.validityTime = response.validityTime;
       })
   }
 
@@ -105,12 +122,13 @@ export class ParkingTerminalComponent implements OnInit {
       {
         licensePlateNumber: this.licensePlateNumber,
         parkingZoneId: this.selectedParkingZone,
-        validityTime: this.validityTime
+        validityTime: this.selectedParkingPass.validityTime
       }).then(response => {
+      this.displayPassDialog = false;
       this.growlMessage.add({
         severity: 'success',
         summary: 'Pass buyed successfully',
-        detail: `Pass buyed for ${response.licensePlateNumber} in ${response.selectedParkingZone}`
+        detail: `Pass buyed for ${response.licensePlateNumber} in ${response.parkingZoneCode}`
       });
     }).catch(
       error => {
@@ -118,9 +136,12 @@ export class ParkingTerminalComponent implements OnInit {
         this.growlMessage.add({
           severity: 'error',
           summary: 'Buying pass failed',
-          detail: `${error.error.text}`
+          detail:  `${error.error.text}`
         })
       }
     );
+  }
+  closeParkingInfoDialog(): void {
+    this.displayParkingInfoDialog= false;
   }
 }
