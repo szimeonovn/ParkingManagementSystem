@@ -6,7 +6,7 @@ public interface ParkingService {
 
     Object startParking(ParkingVO parkingVO);
 
-    Object checkParking(String licensePlateNumber);
+    Object checkParking(ParkingVO parkingVO);
 
     Object stopParking(String licensePlateNumber);
 }

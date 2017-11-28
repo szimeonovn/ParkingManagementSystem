@@ -4,6 +4,7 @@ import hu.unideb.rft.parkingmanagement.entity.Car;
 import hu.unideb.rft.parkingmanagement.entity.Parking;
 import hu.unideb.rft.parkingmanagement.entity.ParkingZone;
 import hu.unideb.rft.parkingmanagement.repository.CarRepository;
+import hu.unideb.rft.parkingmanagement.repository.ParkingPassRepository;
 import hu.unideb.rft.parkingmanagement.repository.ParkingRepository;
 import hu.unideb.rft.parkingmanagement.repository.ParkingZoneRepository;
 import hu.unideb.rft.parkingmanagement.service.CarService;
@@ -34,6 +35,9 @@ public class ParkingServiceImpl implements ParkingService {
 
     @Autowired
     private ParkingZoneRepository parkingZoneRepository;
+
+    @Autowired
+    private ParkingPassRepository parkingPassRepository;
 
     @Autowired
     private Mapper mapper;
@@ -72,11 +76,11 @@ public class ParkingServiceImpl implements ParkingService {
     }
 
     @Override
-    public Object checkParking(String licensePlateNumber) {
-        licensePlateNumber = licensePlateNumber.toUpperCase();
-        Car car = carRepository.findByLicensePlateNumber(licensePlateNumber);
+    public Object checkParking(ParkingVO parkingVO) {
+        parkingVO.setLicensePlateNumber(parkingVO.getLicensePlateNumber().toUpperCase());
+        Car car = carRepository.findByLicensePlateNumber(parkingVO.getLicensePlateNumber());
         if (car == null) {
-            return "There is no parking car with " + licensePlateNumber + " license plate number!";
+            return "There is no parking car with " + parkingVO.getLicensePlateNumber() + " license plate number!";
         }
         Parking parking = parkingRepository.findByCarAndParkingEndIsNull(car);
 
@@ -88,7 +92,15 @@ public class ParkingServiceImpl implements ParkingService {
         if (elapsedSeconds < 900) {
             elapsedSeconds = 900;
         }
-        double parkingCostToPay = (elapsedSeconds / 3600) * parking.getParkingZone().getParkingCostPerHour();
+
+        double parkingCostToPay;
+
+        if (parkingPassRepository.findByCarAndParkingZone(car, parkingZoneRepository.findOne(parkingVO.getParkingZoneId())) != null) {
+            parkingCostToPay = 0;
+        } else {
+            parkingCostToPay = (elapsedSeconds / 3600) * parking.getParkingZone().getParkingCostPerHour();
+        }
+
         double elapsedMinutes = ChronoUnit.MINUTES.between(parking.getParkingStart(), LocalDateTime.now());
 
         CheckParkingVO checkParkingVO = new CheckParkingVO();
