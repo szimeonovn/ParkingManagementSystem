@@ -12,7 +12,6 @@ public class MapperConfiguration {
     @Bean
     public DozerBeanMapperFactoryBean dozerBeanMapperFactoryBean(@Value("classpath*:mappings/*mappings.xml") Resource[] resources) throws Exception {
         final DozerBeanMapperFactoryBean dozerBeanMapperFactoryBean = new DozerBeanMapperFactoryBean();
-        // Other configurations
         dozerBeanMapperFactoryBean.setMappingFiles(resources);
         return dozerBeanMapperFactoryBean;
     }

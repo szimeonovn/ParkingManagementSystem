@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/parkingZone")
-@CrossOrigin(origins = "*")
 public class ParkingZoneController {
 
     @Autowired

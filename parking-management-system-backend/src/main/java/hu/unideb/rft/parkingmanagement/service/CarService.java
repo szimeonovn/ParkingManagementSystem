@@ -8,5 +8,4 @@ public interface CarService {
     CarVO save(CarVO carVO);
 
     Car findByLicensePlateNumber(String licensePlateNumber);
-
 }
