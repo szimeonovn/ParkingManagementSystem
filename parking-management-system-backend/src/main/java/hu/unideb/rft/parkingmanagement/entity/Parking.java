@@ -10,12 +10,7 @@ import java.time.LocalDateTime;
 @Table(name = "PARKING")
 @Getter
 @Setter
-public class Parking {
-
-    @Id
-    @Column(name = "ID")
-    @GeneratedValue
-    private Long id;
+public class Parking extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "CAR_ID", nullable = false)

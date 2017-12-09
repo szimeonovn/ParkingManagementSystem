@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {SelectItem} from "primeng/components/common/selectitem";
-import {AppService} from "../app.service";
-import {Message} from "primeng/components/common/message";
-import {MessageService} from "primeng/components/common/messageservice";
-import {isNullOrUndefined} from "util";
+import {SelectItem} from 'primeng/components/common/selectitem';
+import {AppService} from '../app.service';
+import {Message} from 'primeng/components/common/message';
+import {MessageService} from 'primeng/components/common/messageservice';
+import {AuthenticationService} from '../authentication.service';
 
 @Component({
   selector: 'app-parking-terminal',
@@ -21,7 +21,7 @@ export class ParkingTerminalComponent implements OnInit {
   parkingTime: number;
   parkingPasses: SelectItem[];
   selectedParkingPass: any;
-  displayPassDialog : boolean;
+  displayPassDialog: boolean;
   validityTime: number;
   passPrice: number;
   passType: string;
@@ -34,7 +34,6 @@ export class ParkingTerminalComponent implements OnInit {
   }
 
   ngOnInit() {
-    isNullOrUndefined
     this.listParkingZones();
     this.listParkingPassType();
   }
@@ -67,7 +66,6 @@ export class ParkingTerminalComponent implements OnInit {
           summary: 'Parking successful',
           detail: `Parking started for ${response.licensePlateNumber} at ${response.parkingStart}`
         });
-
       }).catch(
       error => {
         console.log(error);
@@ -75,19 +73,22 @@ export class ParkingTerminalComponent implements OnInit {
           severity: 'error',
           summary: 'Parking failed',
           detail: `${error.error.text}`
-        })
+        });
       }
     );
   }
 
   checkParking(): void {
-    this.appService.callRestPost('parking/checkParking', {licensePlateNumber: this.licensePlateNumber, parkingZoneId: this.selectedParkingZone})
+    this.appService.callRestPost('parking/checkParking', {
+      licensePlateNumber: this.licensePlateNumber,
+      parkingZoneId: this.selectedParkingZone
+    })
       .then(response => {
         this.displayParkingInfoDialog = true;
         console.log(response);
         this.parkingPrice = response.parkingCostToPay;
         this.parkingTime = response.parkingTime;
-      })
+      });
   }
 
   stopParking(): void {
@@ -110,7 +111,7 @@ export class ParkingTerminalComponent implements OnInit {
 
         console.log(this.parkingPasses);
         // this.validityTime = response.validityTime;
-      })
+      });
   }
 
   buyPass(): void {
@@ -136,12 +137,13 @@ export class ParkingTerminalComponent implements OnInit {
         this.growlMessage.add({
           severity: 'error',
           summary: 'Buying pass failed',
-          detail:  `${error.error.text}`
-        })
+          detail: `${error.error.text}`
+        });
       }
     );
   }
+
   closeParkingInfoDialog(): void {
-    this.displayParkingInfoDialog= false;
+    this.displayParkingInfoDialog = false;
   }
 }

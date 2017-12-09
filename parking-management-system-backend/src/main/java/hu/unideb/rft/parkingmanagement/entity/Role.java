@@ -8,12 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CAR")
+@Table(name = "ROLE")
 @Getter
 @Setter
-public class Car extends BaseEntity {
+public class Role extends BaseEntity {
 
-    @Column(name = "LICENSE_PLATE_NUMBER", unique = true, nullable = false)
-    private String licensePlateNumber;
+    @Column(name = "ROLE_NAME")
+    private String roleName;
+
+    @Column(name = "DESCRIPTION")
+    private String description;
 
 }

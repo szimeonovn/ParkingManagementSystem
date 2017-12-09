@@ -9,5 +9,7 @@ import java.io.Serializable;
 @Setter
 public class BaseVO implements Serializable {
 
+    private static final long serialVersionUID = 298045630822722439L;
+
     private Long id;
 }

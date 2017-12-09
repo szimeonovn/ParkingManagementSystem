@@ -9,4 +9,6 @@ public interface ParkingService {
     Object checkParking(ParkingVO parkingVO);
 
     Object stopParking(String licensePlateNumber);
+
+    Object findAllParkingCars();
 }
