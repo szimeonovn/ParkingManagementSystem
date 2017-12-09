@@ -20,7 +20,7 @@ export class AuthenticationService {
       'Authorization': 'Basic ' + btoa(TOKEN_AUTH_USERNAME + ':' + TOKEN_AUTH_PASSWORD)
     });
 
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       this.httpClient.post(AppService.SIMPLE_BASE_URL + AuthenticationService.AUTH_TOKEN, body, {headers: headers})
         .toPromise().then((res: any) => {
         console.log(res);

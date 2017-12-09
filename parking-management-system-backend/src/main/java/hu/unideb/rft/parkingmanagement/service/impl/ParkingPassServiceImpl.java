@@ -35,6 +35,9 @@ public class ParkingPassServiceImpl implements ParkingPassService {
     @Override
     public Object buyParkingPass(ParkingPassVO parkingPassVO) {
         parkingPassVO.setLicensePlateNumber(parkingPassVO.getLicensePlateNumber());
+        if (parkingPassVO.getLicensePlateNumber().trim().isEmpty()) {
+            return "Parking pass must not be empty";
+        }
 
         if (!hasValidParkingPassInZone(parkingPassVO.getLicensePlateNumber(), parkingPassVO.getParkingZoneId())) {
 
