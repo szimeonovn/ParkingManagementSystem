@@ -7,7 +7,10 @@ export class AppService {
   // private static readonly BASE_URL = 'http://localhost:8080/rest/';
   // private static readonly BASE_URL = 'http://atlantissoftwareinc.ddns.net:' +
   //   '8080/rest/';
-  private static readonly BASE_URL = 'http://192.168.33.25:' +
+  // private static readonly BASE_URL = 'http://192.168.33.25:' +
+  //   '8080/rest/'
+
+  private static readonly BASE_URL = 'http://172.20.10.2:' +
     '8080/rest/';
 
   constructor(private http: HttpClient) {
