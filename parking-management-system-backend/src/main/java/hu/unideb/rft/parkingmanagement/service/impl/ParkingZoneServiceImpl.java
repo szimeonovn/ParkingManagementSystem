@@ -31,8 +31,6 @@ public class ParkingZoneServiceImpl implements ParkingZoneService {
 
     @Override
     public List<ParkingZoneVO> list() {
-        List<ParkingZone> zones = parkingZoneRepository.findAll();
-
         List<ParkingZoneVO> allParkingZones = parkingZoneRepository.findAll().stream().map(parkingZone -> mapper.map(parkingZone, ParkingZoneVO.class)).collect(Collectors.toList());
         return allParkingZones;
     }

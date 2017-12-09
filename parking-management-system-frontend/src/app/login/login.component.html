@@ -1,0 +1,17 @@
+<div class="outerGrid">
+  <form (ngSubmit)="login()" #loginForm="ngForm">
+
+    <div>
+      <input pInputText id="username" name="username" type="text" #user="ngModel" [(ngModel)]="username" required>
+    </div>
+
+    <div>
+      <input pInputText id="password" name="password" type="password" #pass="ngModel" [(ngModel)]="password" required>
+    </div>
+
+    <button pButton label="Login" [disabled]="!loginForm.form.valid"></button>
+
+  </form>
+</div>
+
+<p-growl [(value)]="msgs"></p-growl>

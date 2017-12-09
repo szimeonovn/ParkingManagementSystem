@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -126,5 +128,11 @@ public class ParkingServiceImpl implements ParkingService {
         Parking savedParking = parkingRepository.save(parking);
 
         return new StartStopParkingVO(savedParking);
+    }
+
+    @Override
+    public Object findAllParkingCars() {
+        List<Parking> onGoingParkings = parkingRepository.findAllByParkingEndIsNull();
+        return onGoingParkings.stream().map(StartStopParkingVO::new).collect(Collectors.toList());
     }
 }
