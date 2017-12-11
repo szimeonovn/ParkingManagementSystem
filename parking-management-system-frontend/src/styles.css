@@ -13,6 +13,11 @@ body {
   opacity: 0.95;
   width: 500px;
 }
+.adminInnerGrid {
+  background-color: darkslategray;
+  opacity: 0.8;
+  width: 500px;
+}
 
 body::after {
   content: "";
@@ -26,10 +31,10 @@ body::after {
   z-index: -1;
 }
 
-.ui-selectbutton .ui-button.ui-state-default {
-  height: 80px;
-  width: 80px;
-}
+/*::ng-deep .ui-selectbutton .ui-button.ui-state-default {*/
+  /*height: 80px;*/
+  /*width: 80px;*/
+/*}*/
 
 .font {
   font-weight: 600;
@@ -60,7 +65,7 @@ body::after {
   font-weight: 800;
 }
 
-.ui-button-text-only .ui-button-text {
-  padding-top: 30px;
-  padding-bottom: 30px;
-}
+/*::ng-deep .ui-button-text-only .ui-button-text {*/
+  /*padding-top: 30px;*/
+  /*padding-bottom: 30px;*/
+/*}*/

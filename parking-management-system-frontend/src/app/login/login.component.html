@@ -1,17 +1,34 @@
-<div class="outerGrid">
-  <form (ngSubmit)="login()" #loginForm="ngForm">
-
-    <div>
-      <input pInputText id="username" name="username" type="text" #user="ngModel" [(ngModel)]="username" required>
-    </div>
-
-    <div>
-      <input pInputText id="password" name="password" type="password" #pass="ngModel" [(ngModel)]="password" required>
-    </div>
-
-    <button pButton label="Login" [disabled]="!loginForm.form.valid"></button>
-
-  </form>
+<div>
+  <h1
+    style="font-family:Roboto;font-size: 30px;color: #dfdadc; text-align: center; line-height: 50px;">
+    Welcome to the administrator page of the Parking Management System!</h1>
 </div>
 
-<p-growl [(value)]="msgs"></p-growl>
+<div class="outerGrid">
+  <div class="ui-g-12 ui-md-12 adminInnerGrid">
+    <h3 style="font-family:Roboto; text-align: center; color: #d9534f;">Please sign in!</h3>
+
+    <div style="display: flex; justify-content: center">
+      <form (ngSubmit)="login()" #loginForm="ngForm">
+        <div style="display: flex;margin-top: 20px">
+        <span class="ui-float-label">
+          <input pInputText id="username" name="username" type="text" #user="ngModel" [(ngModel)]="username" required>
+          <label style="font-family: Roboto" for="username">Username</label>
+        </span>
+        </div>
+        <div style="display: flex;margin-top: 20px">
+          <span class="ui-float-label">
+          <input pInputText id="password" name="password" type="password" #pass="ngModel" [(ngModel)]="password"
+                 required>
+          <label style="font-family: Roboto" for="password">Password</label>
+        </span>
+        </div>
+        <div style="display: flex;justify-content: center; margin-top: 20px; margin-bottom: 20px">
+          <button pButton label="Login" [disabled]="!loginForm.form.valid"></button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <p-growl [(value)]="msgs"></p-growl>
+</div>
+
