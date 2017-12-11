@@ -7,8 +7,10 @@ import {AppService} from "../app.service";
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+  onGoingCars: any[];
+  constructor(private appService: AppService) {
 
-  constructor(private appService: AppService) { }
+  }
 
   ngOnInit() {
     this.listOnGoingCars();
@@ -20,8 +22,8 @@ export class AdminComponent implements OnInit {
   public listOnGoingCars(): void {
     this.appService.callRestGet('parking/listOnGoing')
       .then(onGoingCarResponse => {
-        const ongoing = onGoingCarResponse;
-        console.log(ongoing);
+        this.onGoingCars = onGoingCarResponse;
+        console.log(this.onGoingCars);
       });
   }
 }

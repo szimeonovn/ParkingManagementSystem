@@ -20,7 +20,9 @@ import {HttpModule} from '@angular/http';
 import {AppRoutingModule} from './/app-routing.module';
 import {AdminComponent} from './admin/admin.component';
 import {AuthGuard} from './guards/auth-guard';
-import { LoginComponent } from './login/login.component';
+import {LoginComponent } from './login/login.component';
+import {DataTableModule} from 'primeng/primeng';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { LoginComponent } from './login/login.component';
     GrowlModule,
     DialogModule,
     ContextMenuModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DataTableModule
   ],
   providers: [
     AppService,
