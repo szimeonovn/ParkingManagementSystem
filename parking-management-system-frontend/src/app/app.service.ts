@@ -7,8 +7,8 @@ export class AppService {
 
   public static SIMPLE_BASE_URL;
 
-  private static readonly BASE_URL = 'http://localhost:8080/rest/';
-  // private static readonly BASE_URL = 'http://atlantissoftwareinc.ddns.net8080/rest/';
+  // private static readonly BASE_URL = 'http://localhost:8080/rest/';
+  private static readonly BASE_URL = 'http://atlantissoftwareinc.ddns.net:8080/rest/';
   // private static readonly BASE_URL = 'http://192.168.33.25:8080/rest/';
 
   token: string;

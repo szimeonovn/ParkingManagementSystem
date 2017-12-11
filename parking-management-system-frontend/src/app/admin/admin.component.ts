@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AppService} from "../app.service";
 
 @Component({
   selector: 'app-admin',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(private appService: AppService) { }
 
   ngOnInit() {
+    this.listOnGoingCars();
   }
+  // private addParkingZone(): void {
+  //   this.appService.callRestPost('parkingZone/save');
+  // }
 
+  public listOnGoingCars(): void {
+    this.appService.callRestGet('parking/listOnGoing')
+      .then(onGoingCarResponse => {
+        const ongoing = onGoingCarResponse;
+        console.log(ongoing);
+      });
+  }
 }
