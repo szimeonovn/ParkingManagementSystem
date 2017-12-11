@@ -38,16 +38,6 @@ export class ParkingTerminalComponent implements OnInit {
     this.listParkingPassType();
   }
 
-  // get selectedParkingPass(): string {
-  //   return this._selectedParkingPass;
-  // }
-  //
-  // set selectedParkingPass(newPass: string) {
-  //   this._selectedParkingPass = newPass;
-  //   const selectedPass = this.parkingPasses.find(pass => pass.label === newPass).value;
-  //   this.passPrice = selectedPass.price;
-  //
-  // }
 
   listParkingZones(): void {
     this.appService.callRestGet('parkingZone/list').then(response => {

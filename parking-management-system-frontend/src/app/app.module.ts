@@ -25,6 +25,7 @@ import {AdminComponent} from './admin/admin.component';
 import {AuthGuard} from './guards/auth-guard';
 import {LoginComponent } from './login/login.component';
 import {DataTableModule} from 'primeng/primeng';
+import {ParkingGuardComponent } from './parking-guard/parking-guard.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {DataTableModule} from 'primeng/primeng';
     AppComponent,
     ParkingTerminalComponent,
     AdminComponent,
-    LoginComponent
+    LoginComponent,
+    ParkingGuardComponent
   ],
   imports: [
     HttpClientModule,
