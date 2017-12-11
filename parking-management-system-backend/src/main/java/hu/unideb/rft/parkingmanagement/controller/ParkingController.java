@@ -47,7 +47,7 @@ public class ParkingController {
     }
 
     @GetMapping("/listOnGoing")
-    @PreAuthorize("hasAuthority('ADMIN_USER')")
+    // @PreAuthorize("hasAuthority('ADMIN_USER')")
     public ResponseEntity<Object> listOnGoingParkings() {
         return new ResponseEntity<>(parkingService.findAllParkingCars(), HttpStatus.OK);
     }
