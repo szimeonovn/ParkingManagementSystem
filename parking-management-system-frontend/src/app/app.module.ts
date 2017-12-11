@@ -2,7 +2,10 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {ButtonModule, DropdownModule, InputTextModule, ProgressSpinnerModule} from 'primeng/primeng';
+import {
+  ButtonModule, DropdownModule, HeaderColumnGroup, InputTextModule, ProgressSpinnerModule,
+  SharedModule
+} from 'primeng/primeng';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {AppService} from './app.service';
@@ -47,7 +50,8 @@ import {DataTableModule} from 'primeng/primeng';
     DialogModule,
     ContextMenuModule,
     AppRoutingModule,
-    DataTableModule
+    DataTableModule,
+    SharedModule,
   ],
   providers: [
     AppService,

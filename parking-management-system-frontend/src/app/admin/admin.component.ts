@@ -8,6 +8,7 @@ import {AppService} from "../app.service";
 })
 export class AdminComponent implements OnInit {
   onGoingCars: any[];
+  stacked: boolean;
   constructor(private appService: AppService) {
 
   }
@@ -19,6 +20,9 @@ export class AdminComponent implements OnInit {
   //   this.appService.callRestPost('parkingZone/save');
   // }
 
+  toggle() {
+    this.stacked = !this.stacked;
+  }
   public listOnGoingCars(): void {
     this.appService.callRestGet('parking/listOnGoing')
       .then(onGoingCarResponse => {
