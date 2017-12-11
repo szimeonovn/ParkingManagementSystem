@@ -10,6 +10,7 @@ import hu.unideb.rft.parkingmanagement.repository.ParkingZoneRepository;
 import hu.unideb.rft.parkingmanagement.service.CarService;
 import hu.unideb.rft.parkingmanagement.service.ParkingService;
 import hu.unideb.rft.parkingmanagement.vo.CheckParkingVO;
+import hu.unideb.rft.parkingmanagement.vo.ErrorVO;
 import hu.unideb.rft.parkingmanagement.vo.ParkingVO;
 import hu.unideb.rft.parkingmanagement.vo.StartStopParkingVO;
 import org.dozer.Mapper;
@@ -81,13 +82,21 @@ public class ParkingServiceImpl implements ParkingService {
     public Object checkParking(ParkingVO parkingVO) {
         parkingVO.setLicensePlateNumber(parkingVO.getLicensePlateNumber().toUpperCase());
         Car car = carRepository.findByLicensePlateNumber(parkingVO.getLicensePlateNumber());
+
         if (car == null) {
-            return "There is no parking car with " + parkingVO.getLicensePlateNumber() + " license plate number!";
+            return new ErrorVO("There is no parking car with " + parkingVO.getLicensePlateNumber() + " license plate number!");
         }
-        Parking parking = parkingRepository.findByCarAndParkingEndIsNull(car);
+
+        ParkingZone zone = parkingZoneRepository.findOne(parkingVO.getParkingZoneId());
+
+        if (zone == null) {
+            return "There is no parking zone with the specified id in the database!";
+        }
+
+        Parking parking = parkingRepository.findByCarAndParkingZoneAndParkingEndIsNull(car, zone);
 
         if (parking == null) {
-            return "There is no parking car with " + car.getLicensePlateNumber() + " license plate number!";
+            return new ErrorVO("There is no parking car with " + car.getLicensePlateNumber() + " license plate number in " + zone.getZoneCode() + " zone!");
         }
 
         double elapsedSeconds = ChronoUnit.SECONDS.between(parking.getParkingStart(), LocalDateTime.now());
