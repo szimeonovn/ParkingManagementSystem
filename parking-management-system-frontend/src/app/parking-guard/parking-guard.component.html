@@ -5,19 +5,22 @@
       <p class="font">Select a parking zone</p>
 
       <div style="display: flex; justify-content: center" class="ui-g-12 ui-md-12">
-        <p-selectButton [required]="true" name="parkingZone" [options]="parkingZones" [(ngModel)]="selectedParkingZone"></p-selectButton>
+        <p-selectButton [required]="true" name="parkingZone" [options]="parkingZones"
+                        [(ngModel)]="selectedParkingZone"></p-selectButton>
       </div>
       <div class="ui-g-12 ui-md-12">
         <p class="font">Please enter your license plate number</p>
 
-        <p-inputMask #licensePlate="ngModel"  [required]="true" class="center" name="licencePlate" [(ngModel)]="licensePlateNumber" mask="aaa-999"></p-inputMask>
+        <p-inputMask #licensePlate="ngModel" [required]="true" class="center" name="licencePlate"
+                     [(ngModel)]="licensePlateNumber" mask="aaa-999"></p-inputMask>
       </div>
 
 
       <p-growl [(value)]="msgs"></p-growl>
 
       <div class="ui-g-12 ui-md-12 center">
-        <button pButton type="button" label="Check parking" (click)="checkParking()" [disabled]="!licensePlate.valid"></button>
+        <button pButton type="button" label="Check parking" (click)="checkParking()"
+                [disabled]="!licensePlate.valid"></button>
       </div>
 
     </form>

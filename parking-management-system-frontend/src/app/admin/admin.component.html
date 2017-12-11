@@ -1,9 +1,5 @@
-
 <h3 style="color:whitesmoke;font-family: Roboto">List of parking cars at present</h3>
-
 <button pButton type="button" (click)="toggle()" style="margin-bottom:10px" label="Toggle" icon="fa-list"></button>
-<button (click)="openNewZoneDialog()" style="background-color: indianred; border: indianred" pButton type="button"
-        label="Add new parking zone"></button>
 <div class="card" style="width: 50%; text-align: center">
   <p-dataTable [value]="onGoingCars" [rows]="6" [paginator]="true" [pageLinks]="3" [responsive]="true"
                [stacked]="stacked"
@@ -11,6 +7,18 @@
     <p-column [filter]="true" filterPlaceholder="Search" field="licensePlateNumber" header="License Plate"></p-column>
     <p-column [filter]="true" filterPlaceholder="Search" field="parkingStart" header="Parking Start"></p-column>
     <p-column [filter]="true" filterPlaceholder="Search" field="parkingZoneCode" header="Zone"></p-column>
+  </p-dataTable>
+</div>
+
+<h3 style="color:whitesmoke;font-family: Roboto">List of parking zones</h3>
+<button (click)="openNewZoneDialog()" style="background-color: indianred; border: indianred" pButton type="button"
+        label="Add new parking zone"></button>
+<div class="card" style="width: 50%; text-align: center">
+  <p-dataTable [value]="parkingZones" [rows]="6" [paginator]="true" [pageLinks]="3" [responsive]="true"
+               [stacked]="stacked"
+               reorderableColumns="true">
+    <p-column [filter]="true" filterPlaceholder="Search"  header="Zones"></p-column>
+
   </p-dataTable>
 </div>
 
@@ -31,3 +39,4 @@
   <button pButton type="button" label="Cancel" (click)="closeDialog()"></button>
 
 </p-dialog>
+<p-growl [(value)]="msgs"></p-growl>

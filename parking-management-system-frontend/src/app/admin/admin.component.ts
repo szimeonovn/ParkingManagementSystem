@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AppService} from "../app.service";
+import {SelectItem} from "primeng/primeng";
+import {Message} from "primeng/components/common/message";
 
 @Component({
   selector: 'app-admin',
@@ -10,12 +12,20 @@ export class AdminComponent implements OnInit {
   onGoingCars: any[];
   stacked: boolean;
   displayDialog: boolean;
+  isLoading: boolean;
+  parkingZones: SelectItem[];
+  msgs: Message[];
+
 
   constructor(private appService: AppService) {
+    this.parkingZones = [];
+    this.msgs = [];
+
 
   }
 
   ngOnInit() {
+    this.listParkingZones();
     this.listOnGoingCars();
   }
 
@@ -41,5 +51,12 @@ export class AdminComponent implements OnInit {
         this.onGoingCars = onGoingCarResponse;
         console.log(this.onGoingCars);
       });
+  }
+
+  listParkingZones(): void {
+    this.appService.callRestGet('parkingZone/list').then(response => {
+      this.isLoading = false;
+      this.parkingZones = response.map(parkingZone => ({label: parkingZone.zoneCode, value: parkingZone.id}));
+    });
   }
 }
