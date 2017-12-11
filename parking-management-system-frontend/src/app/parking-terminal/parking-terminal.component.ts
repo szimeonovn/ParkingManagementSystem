@@ -3,7 +3,6 @@ import {SelectItem} from 'primeng/components/common/selectitem';
 import {AppService} from '../app.service';
 import {Message} from 'primeng/components/common/message';
 import {MessageService} from 'primeng/components/common/messageservice';
-import {AuthenticationService} from '../authentication.service';
 
 @Component({
   selector: 'app-parking-terminal',
@@ -78,7 +77,12 @@ export class ParkingTerminalComponent implements OnInit {
         console.log(response);
         this.parkingPrice = response.parkingCostToPay;
         this.parkingTime = response.parkingTime;
+      }).catch(reason => {
+      this.growlMessage.add({
+        severity: 'warn',
+        summary: reason,
       });
+    });
   }
 
   stopParking(): void {
