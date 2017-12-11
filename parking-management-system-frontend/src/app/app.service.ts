@@ -1,19 +1,19 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {isNullOrUndefined} from 'util';
+import {Headers, Http} from '@angular/http';
 
 @Injectable()
 export class AppService {
 
   public static SIMPLE_BASE_URL;
 
-  // private static readonly BASE_URL = 'http://localhost:8080/rest/';
-  private static readonly BASE_URL = 'http://atlantissoftwareinc.ddns.net:8080/rest/';
+  private static readonly BASE_URL = 'http://localhost:8080/rest/';
+  // private static readonly BASE_URL = 'http://atlantissoftwareinc.ddns.net:8080/rest/';
   // private static readonly BASE_URL = 'http://192.168.33.25:8080/rest/';
 
   token: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: Http) {
     AppService.SIMPLE_BASE_URL = AppService.BASE_URL.split(/rest/)[0];
   }
 
@@ -21,11 +21,16 @@ export class AppService {
     console.log(`callRestPost, url: ${AppService.BASE_URL}` + url);
     return new Promise<any>((resolve, reject) => {
       this.http.post(`${AppService.BASE_URL}${url}`, requestBody, {headers: this.getHeaders()})
-        .toPromise()
-        .then(response => {
-          console.log(JSON.stringify(response, null, 2));
-          resolve(response);
-        }).catch(reason => {
+        .toPromise().then(res => {
+        const response = res.json();
+        console.log(JSON.stringify(response, null, 2));
+
+        if (!isNullOrUndefined(response.errorMessage)) {
+          reject(response.errorMessage);
+        }
+
+        resolve(response);
+      }).catch(reason => {
         console.error(reason);
         reject(reason);
       });
@@ -36,7 +41,13 @@ export class AppService {
     console.log(`callRestGet, url: ${AppService.BASE_URL}` + url);
     return new Promise<any>((resolve, reject) => {
       this.http.get(`${AppService.BASE_URL}${url}`)
-        .toPromise().then(response => {
+        .toPromise().then(res => {
+        const response = res.json();
+
+        if (!isNullOrUndefined(response.errorMessage)) {
+          reject(response.errorMessage);
+        }
+
         resolve(response);
       }).catch(reason => {
         console.error(reason);
@@ -45,11 +56,11 @@ export class AppService {
     });
   }
 
-  private getHeaders(): HttpHeaders {
+  private getHeaders(): Headers {
     if (!isNullOrUndefined(this.token)) {
-      return new HttpHeaders({'Authorization': 'Bearer ' + this.token});
+      return new Headers({'Authorization': 'Bearer ' + this.token});
     } else {
-      return new HttpHeaders();
+      return new Headers();
     }
   }
 
