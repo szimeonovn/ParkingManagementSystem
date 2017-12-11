@@ -1,12 +1,33 @@
+
 <h3 style="color:whitesmoke;font-family: Roboto">List of parking cars at present</h3>
 
 <button pButton type="button" (click)="toggle()" style="margin-bottom:10px" label="Toggle" icon="fa-list"></button>
-
+<button (click)="openNewZoneDialog()" style="background-color: indianred; border: indianred" pButton type="button"
+        label="Add new parking zone"></button>
 <div class="card" style="width: 50%; text-align: center">
-  <p-dataTable [value]="onGoingCars" [rows]="6" [paginator]="true" [pageLinks]="3" [responsive]="true" [stacked]="stacked"
+  <p-dataTable [value]="onGoingCars" [rows]="6" [paginator]="true" [pageLinks]="3" [responsive]="true"
+               [stacked]="stacked"
                reorderableColumns="true">
     <p-column [filter]="true" filterPlaceholder="Search" field="licensePlateNumber" header="License Plate"></p-column>
     <p-column [filter]="true" filterPlaceholder="Search" field="parkingStart" header="Parking Start"></p-column>
     <p-column [filter]="true" filterPlaceholder="Search" field="parkingZoneCode" header="Zone"></p-column>
   </p-dataTable>
 </div>
+
+<p-dialog header="Add new parking zone" [(visible)]="displayDialog" *ngIf="displayDialog" [modal]="true" [responsive]="true">
+  <div>
+      <span class="ui-float-label">
+        <input id="zoneCode" type="text" size="30" pInputText>
+        <label for="zoneCode">Zone code</label>
+      </span>
+  </div>
+  <div>
+  <span class="ui-float-label" style="margin-top: 20px; margin-bottom: 20px">
+        <input id="cost" type="text" size="30" pInputText>
+        <label for="cost">Cost/hour</label>
+      </span>
+  </div>
+  <button pButton type="button" label="Add" (click)="addParkingZone()"></button>
+  <button pButton type="button" label="Cancel" (click)="closeDialog()"></button>
+
+</p-dialog>

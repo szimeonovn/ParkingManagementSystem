@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppService} from "../app.service";
 
 @Component({
@@ -9,6 +9,8 @@ import {AppService} from "../app.service";
 export class AdminComponent implements OnInit {
   onGoingCars: any[];
   stacked: boolean;
+  displayDialog: boolean;
+
   constructor(private appService: AppService) {
 
   }
@@ -16,13 +18,23 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.listOnGoingCars();
   }
-  // private addParkingZone(): void {
-  //   this.appService.callRestPost('parkingZone/save');
-  // }
+
+  public addParkingZone(): void {
+    this.appService.callRestPost('parkingZone/save');
+  }
 
   toggle() {
     this.stacked = !this.stacked;
   }
+
+  openNewZoneDialog(): void {
+    this.displayDialog = true;
+  }
+
+  closeDialog(): void {
+    this.displayDialog = false;
+  }
+
   public listOnGoingCars(): void {
     this.appService.callRestGet('parking/listOnGoing')
       .then(onGoingCarResponse => {
