@@ -1,5 +1,5 @@
 <h3 style="color:whitesmoke;font-family: Roboto">List of parking cars at present</h3>
-<button pButton type="button" (click)="toggle()" style="margin-bottom:10px" label="Toggle" icon="fa-list"></button>
+<!--<button pButton type="button" (click)="toggle()" style="margin-bottom:10px" label="Toggle" icon="fa-list"></button>-->
 <div class="card" style="width: 50%; text-align: center">
   <p-dataTable [value]="onGoingCars" [rows]="6" [paginator]="true" [pageLinks]="3" [responsive]="true"
                [stacked]="stacked"
@@ -10,14 +10,14 @@
   </p-dataTable>
 </div>
 
-<h3 style="color:whitesmoke;font-family: Roboto">List of parking zones</h3>
-<button (click)="openNewZoneDialog()" style="background-color: indianred; border: indianred" pButton type="button"
+<!--<h3 style="color:whitesmoke;font-family: Roboto">List of parking zones</h3>-->
+<button (click)="openNewZoneDialog()" style="margin-top:20px; background-color: indianred; border: indianred" pButton type="button"
         label="Add new parking zone"></button>
 <div class="card" style="width: 50%; text-align: center">
   <p-dataTable [value]="parkingZones" [rows]="6" [paginator]="true" [pageLinks]="3" [responsive]="true"
                [stacked]="stacked"
                reorderableColumns="true">
-    <p-column [filter]="true" filterPlaceholder="Search"  header="Zones"></p-column>
+    <p-column [filter]="true" filterPlaceholder="Search" field="label"  header="List of parking zones"></p-column>
 
   </p-dataTable>
 </div>
@@ -25,13 +25,13 @@
 <p-dialog header="Add new parking zone" [(visible)]="displayDialog" *ngIf="displayDialog" [modal]="true" [responsive]="true">
   <div>
       <span class="ui-float-label">
-        <input id="zoneCode" type="text" size="30" pInputText>
+        <input [(ngModel)]="zoneCode" id="zoneCode" type="text" size="30" pInputText>
         <label for="zoneCode">Zone code</label>
       </span>
   </div>
   <div>
   <span class="ui-float-label" style="margin-top: 20px; margin-bottom: 20px">
-        <input id="cost" type="text" size="30" pInputText>
+        <input [(ngModel)]="parkingCostPerHour" id="cost" type="text" size="30" pInputText>
         <label for="cost">Cost/hour</label>
       </span>
   </div>
