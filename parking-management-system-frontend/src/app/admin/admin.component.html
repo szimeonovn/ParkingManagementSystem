@@ -1,15 +1,14 @@
 <div class="ui-g">
-  <div class="ui-g-6 ui-g-nopad">
-    <div class="ui-g-12 ui-md-12">
-      <span style="color:whitesmoke;font-family: Roboto;font-weight: bold; margin-top: 0;margin-bottom: 4px;">List of parking cars at present</span>
+    <div class="ui-g-6 ui-md-6">
+      <span style="color:deepskyblue;font-family: Roboto;font-weight: bold; margin-top: 0;margin-bottom: 4px;">List of parking cars at present</span>
       <p-dataTable [value]="onGoingCars" [rows]="6" [paginator]="true" [pageLinks]="3" reorderableColumns="true">
         <p-column [filter]="true" filterPlaceholder="Search" field="licensePlateNumber" header="License Plate"></p-column>
         <p-column [filter]="true" filterPlaceholder="Search" field="parkingStart" header="Parking Start"></p-column>
         <p-column [filter]="true" filterPlaceholder="Search" field="parkingZoneCode" header="Zone"></p-column>
       </p-dataTable>
     </div>
-    <div class="ui-g-12 ui-md-12">
-      <span style="color:whitesmoke;font-family: Roboto;font-weight: bold; margin-top: 0;margin-bottom: 4px;">List of zones</span>
+    <div class="ui-g-6 ui-md-6">
+      <span style="color:deepskyblue;font-family: Roboto;font-weight: bold; margin-top: 0;margin-bottom: 4px;">List of zones</span>
 
       <p-dataTable [value]="parkingZones" [rows]="6" [paginator]="true" [pageLinks]="3"reorderableColumns="true"
                    selectionMode="single" [(selection)]="selectedParkingZone">
@@ -24,13 +23,19 @@
       </p-dataTable>
 
     </div>
-  </div>
-  <div class="ui-g-6 ui-md-6">
-    <span style="color:whitesmoke;font-family: Roboto;font-weight: bold;margin-top: 0;margin-bottom: 4px;">List of all cars</span>
-    <p-dataTable [value]="allCars" [rows]="18" [paginator]="true" [pageLinks]="3" reorderableColumns="true">
+  <div class="ui-g-6 ui-md-6" style="margin-top: 20px">
+    <span style="color:deepskyblue;font-family: Roboto;font-weight: bold;margin-top: 0;margin-bottom: 4px;">List of all cars</span>
+    <p-dataTable [value]="allCars" [rows]="6" [paginator]="true" [pageLinks]="3" reorderableColumns="true">
       <p-column [filter]="true" filterPlaceholder="Search" field="licensePlateNumber" header="License plate"></p-column>
     </p-dataTable>
-  </div></div>
+  </div>
+  <div class="ui-g-6 ui-md-6" style="margin-top: 20px">
+    <span style="color:deepskyblue;font-family: Roboto;font-weight: bold;margin-top: 0;margin-bottom: 4px;">List of all parking passes</span>
+    <p-dataTable [value]="allPasses" [rows]="6" [paginator]="true" [pageLinks]="3" reorderableColumns="true">
+      <p-column [filter]="true" filterPlaceholder="Search" field="licensePlateNumber" header="Parking passes"></p-column>
+    </p-dataTable>
+  </div>
+</div>
 
 
 

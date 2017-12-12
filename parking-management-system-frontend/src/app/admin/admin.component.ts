@@ -20,6 +20,7 @@ export class AdminComponent implements OnInit {
   zoneCode: string;
   parkingCostPerHour: number;
   allCars: any[];
+  allPasses: any[];
   selectedParkingZone: any;
   headerTitle: string;
 
@@ -33,6 +34,7 @@ export class AdminComponent implements OnInit {
     this.listParkingZones();
     this.listOnGoingCars();
     this.listAllCars();
+    this.listAllPasses();
   }
 
   public saveParkingZone(): void {
@@ -101,6 +103,13 @@ export class AdminComponent implements OnInit {
     this.appService.callRestGet('car/list')
       .then(carResponse => {
         this.allCars = carResponse;
+      });
+  }
+  listAllPasses(): void {
+    this.appService.callRestGet('parkingPass/list')
+      .then(carResponse => {
+        this.allPasses = carResponse;
+        console.log(this.allPasses);
       });
   }
 }

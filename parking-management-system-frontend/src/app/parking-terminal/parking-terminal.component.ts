@@ -61,7 +61,7 @@ export class ParkingTerminalComponent implements OnInit {
         this.growlMessage.add({
           severity: 'error',
           summary: 'Parking failed',
-          detail: `${error.error.text}`
+          detail: `${error}`
         });
       }
     );
@@ -131,7 +131,7 @@ export class ParkingTerminalComponent implements OnInit {
         this.growlMessage.add({
           severity: 'error',
           summary: 'Buying pass failed',
-          detail: `${error.error.text}`
+          detail: `${error}`
         });
       }
     );
