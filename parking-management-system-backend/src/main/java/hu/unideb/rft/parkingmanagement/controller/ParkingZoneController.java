@@ -1,6 +1,7 @@
 package hu.unideb.rft.parkingmanagement.controller;
 
 import hu.unideb.rft.parkingmanagement.service.ParkingZoneService;
+import hu.unideb.rft.parkingmanagement.vo.ErrorVO;
 import hu.unideb.rft.parkingmanagement.vo.ParkingZoneVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,7 +24,7 @@ public class ParkingZoneController {
             ParkingZoneVO savedParkingZone = parkingZoneService.save(parkingZoneVO);
             return new ResponseEntity<>(savedParkingZone, HttpStatus.OK);
         } catch (DataIntegrityViolationException e) {
-            return new ResponseEntity<>("There is a parking zone with " + parkingZoneVO.getZoneCode() + " zone code!", HttpStatus.OK);
+            return new ResponseEntity<>(new ErrorVO("There is a parking zone with " + parkingZoneVO.getZoneCode() + " zone code!"), HttpStatus.OK);
         }
     }
 

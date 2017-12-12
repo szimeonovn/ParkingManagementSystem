@@ -8,6 +8,7 @@ import hu.unideb.rft.parkingmanagement.repository.ParkingPassRepository;
 import hu.unideb.rft.parkingmanagement.repository.ParkingZoneRepository;
 import hu.unideb.rft.parkingmanagement.service.ParkingPassService;
 import hu.unideb.rft.parkingmanagement.vo.BuyParkingPassVO;
+import hu.unideb.rft.parkingmanagement.vo.ErrorVO;
 import hu.unideb.rft.parkingmanagement.vo.ParkingPassVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class ParkingPassServiceImpl implements ParkingPassService {
     public Object buyParkingPass(ParkingPassVO parkingPassVO) {
         parkingPassVO.setLicensePlateNumber(parkingPassVO.getLicensePlateNumber());
         if (parkingPassVO.getLicensePlateNumber().trim().isEmpty()) {
-            return "Parking pass must not be empty";
+            return new ErrorVO("Parking pass must not be empty");
         }
 
         if (!hasValidParkingPassInZone(parkingPassVO.getLicensePlateNumber(), parkingPassVO.getParkingZoneId())) {
@@ -78,12 +79,12 @@ public class ParkingPassServiceImpl implements ParkingPassService {
                 buyParkingPassVO.setValidityStart(savedParkingPass.getValidityStart().format(ParkingPassServiceImpl.DATE_FORMATTER));
                 buyParkingPassVO.setValidityEnd(savedParkingPass.getValidityEnd().format(ParkingPassServiceImpl.DATE_FORMATTER));
             } else {
-                return "Error in saving parking pass!";
+                return new ErrorVO("Error in saving parking pass!");
             }
 
             return buyParkingPassVO;
         } else {
-            return "This car already has a parking pass to this parking zone!";
+            return new ErrorVO("This car already has a parking pass to this parking zone!");
         }
 
     }

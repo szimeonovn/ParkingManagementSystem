@@ -53,7 +53,7 @@ public class ParkingServiceImpl implements ParkingService {
         if (parkingCarCandidate != null) {
             Parking onGoingParking = parkingRepository.findByCarAndParkingEndIsNull(parkingCarCandidate);
             if (onGoingParking != null) {
-                return "This car is already parking in " + onGoingParking.getParkingZone().getZoneCode() + " zone!";
+                return new ErrorVO("This car is already parking in " + onGoingParking.getParkingZone().getZoneCode() + " zone!");
             }
         }
 
@@ -66,7 +66,7 @@ public class ParkingServiceImpl implements ParkingService {
         ParkingZone parkingZone = parkingZoneRepository.findOne(parkingVO.getParkingZoneId());
 
         if (parkingZone == null) {
-            return "There is no parking zone with the gived id " + parkingVO.getParkingZoneId() + "!";
+            return new ErrorVO("There is no parking zone with the gived id " + parkingVO.getParkingZoneId() + "!");
         }
 
         Parking parking = new Parking();
@@ -90,7 +90,7 @@ public class ParkingServiceImpl implements ParkingService {
         ParkingZone zone = parkingZoneRepository.findOne(parkingVO.getParkingZoneId());
 
         if (zone == null) {
-            return "There is no parking zone with the specified id in the database!";
+            return new ErrorVO("There is no parking zone with the specified id in the database!");
         }
 
         Parking parking = parkingRepository.findByCarAndParkingZoneAndParkingEndIsNull(car, zone);
@@ -129,7 +129,7 @@ public class ParkingServiceImpl implements ParkingService {
         Parking parking = parkingRepository.findByCarAndParkingEndIsNull(car);
 
         if (parking == null) {
-            return "There is no parking car with " + car.getLicensePlateNumber() + " license plate number!";
+            return new ErrorVO("There is no parking car with " + car.getLicensePlateNumber() + " license plate number!");
         }
 
         parking.setParkingEnd(LocalDateTime.now());

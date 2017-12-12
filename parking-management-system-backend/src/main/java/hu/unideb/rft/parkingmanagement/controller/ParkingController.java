@@ -6,6 +6,7 @@ import hu.unideb.rft.parkingmanagement.vo.ParkingVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,11 +24,11 @@ public class ParkingController {
     @PostMapping("/startParking")
     public ResponseEntity<Object> startParking(@RequestBody ParkingVO parkingVO) {
         if (parkingVO.getLicensePlateNumber() == null) {
-            return new ResponseEntity<>("licensePlateNumber must not be null!", HttpStatus.OK);
+            return new ResponseEntity<>(new ErrorVO("licensePlateNumber must not be null!"), HttpStatus.OK);
         }
 
         if (parkingVO.getParkingZoneId() == null) {
-            return new ResponseEntity<>("parkingZoneId must not be null!", HttpStatus.OK);
+            return new ResponseEntity<>(new ErrorVO("parkingZoneId must not be null!"), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(parkingService.startParking(parkingVO), HttpStatus.OK);
@@ -52,7 +53,7 @@ public class ParkingController {
     }
 
     @GetMapping("/listOnGoing")
-    // @PreAuthorize("hasAuthority('ADMIN_USER')")
+    @PreAuthorize("hasAuthority('ADMIN_USER')")
     public ResponseEntity<Object> listOnGoingParkings() {
         return new ResponseEntity<>(parkingService.findAllParkingCars(), HttpStatus.OK);
     }

@@ -1,5 +1,6 @@
 package hu.unideb.rft.parkingmanagement.configuration;
 
+import hu.unideb.rft.parkingmanagement.vo.ErrorVO;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(AccessDeniedException.class)
     protected ResponseEntity<Object> handleAccessDenied(AccessDeniedException e) {
-        return new ResponseEntity<>("Access denied", HttpStatus.OK);
+        return new ResponseEntity<>(new ErrorVO("Access denied"), HttpStatus.OK);
     }
 }
