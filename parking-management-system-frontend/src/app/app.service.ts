@@ -7,9 +7,9 @@ export class AppService {
 
   public static SIMPLE_BASE_URL;
 
-  private static readonly BASE_URL = 'http://localhost:8080/rest/';
+  // private static readonly BASE_URL = 'http://localhost:8080/rest/';
   // private static readonly BASE_URL = 'http://atlantissoftwareinc.ddns.net:8080/rest/';
-  // private static readonly BASE_URL = 'http://192.168.33.25:8080/rest/';
+  private static readonly BASE_URL = 'http://192.168.33.127:8080/rest/';
 
   token: string;
 
@@ -40,7 +40,7 @@ export class AppService {
   public callRestGet(url: string): Promise<any> {
     console.log(`callRestGet, url: ${AppService.BASE_URL}` + url);
     return new Promise<any>((resolve, reject) => {
-      this.http.get(`${AppService.BASE_URL}${url}`)
+      this.http.get(`${AppService.BASE_URL}${url}`, {headers: this.getHeaders()})
         .toPromise().then(res => {
         const response = res.json();
 

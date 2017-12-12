@@ -4,7 +4,7 @@
     <form #parkingTerminalForm="ngForm">
       <p class="font">Select a parking zone</p>
 
-      <div style="display: flex; justify-content: center" class="ui-g-12 ui-md-12">
+      <div style="text-align: center;" class="ui-g-12 ui-md-12">
         <p-selectButton [required]="true" name="parkingZone" [options]="parkingZones" [(ngModel)]="selectedParkingZone"></p-selectButton>
       </div>
       <div class="ui-g-12 ui-md-12">
@@ -36,7 +36,7 @@
 
     <div class="ui-g-12 ui-md-12 center">
       <button pButton type="button" label="Start parking" (click)="startParking()" [disabled]="!parkingTerminalForm.form.valid"></button>
-      <button pButton type="button" label="Check parking" (click)="checkParking()" [disabled]="!licensePlate.valid"></button>
+      <button pButton type="button" label="Stop parking" (click)="checkParking()" [disabled]="!licensePlate.valid"></button>
     </div>
       <div class="ui-g-12">
         <p class="font" style="color:#eeeeee" >Want to buy a pass?</p>
