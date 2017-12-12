@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AppService} from "../app.service";
 import {Message} from "primeng/components/common/message";
 import {SelectItem} from "primeng/primeng";
+import {MessageService} from "primeng/components/common/messageservice";
 
 @Component({
   selector: 'app-parking-guard',
@@ -18,7 +19,7 @@ export class ParkingGuardComponent implements OnInit {
   displayParkingInfoDialog = false;
 
 
-  constructor(private appService: AppService) {
+  constructor(private appService: AppService, private growlMessage: MessageService) {
     this.parkingZones = [];
     this.msgs = [];
 
@@ -41,9 +42,14 @@ export class ParkingGuardComponent implements OnInit {
       .then(response => {
         this.displayParkingInfoDialog = true;
         console.log(response);
-        // this.parkingPrice = response.parkingCostToPay;
-        // this.parkingTime = response.parkingTime;
+      }).catch(error => {
+      console.log(error);
+      this.growlMessage.add({
+        severity: 'error',
+        summary: 'Check failed',
+        detail: `${error}`
       });
+    });
   }
 
 }

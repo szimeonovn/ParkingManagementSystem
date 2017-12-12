@@ -19,6 +19,9 @@ export class AdminComponent implements OnInit {
   zoneId: number;
   zoneCode: string;
   parkingCostPerHour: number;
+  allCars: any[];
+  selectedParkingZone: any;
+  headerTitle: string;
 
   constructor(private appService: AppService,
               private growlMessage: MessageService) {
@@ -29,9 +32,10 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.listParkingZones();
     this.listOnGoingCars();
+    this.listAllCars();
   }
 
-  public addParkingZone(): void {
+  public saveParkingZone(): void {
     this.appService.callRestPost('parkingZone/save',
       {id: this.zoneId, zoneCode: this.zoneCode, parkingCostPerHour: this.parkingCostPerHour})
       .then(response => {
@@ -39,8 +43,8 @@ export class AdminComponent implements OnInit {
         this.displayDialog = false;
         this.growlMessage.add({
           severity: 'success',
-          summary: 'Zone added successfully',
-          detail: `Zone added with zone code: ${response.zoneCode}!`
+          summary: 'Zone saved successfully',
+          detail: `Zone saved with zone code: ${response.zoneCode}!`
         });
       }).catch( error => {
       console.log(error);
@@ -52,15 +56,27 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  // toggle() {
-  //   this.stacked = !this.stacked;
-  // }
+  openEditZoneDialog(): void {
+    this.headerTitle = 'Edit parking zone';
+    this.zoneId = this.selectedParkingZone.id;
+    this.zoneCode = this.selectedParkingZone.label;
+    this.parkingCostPerHour = this.selectedParkingZone.parkingCostPerHour;
+    this.displayDialog = true;
+  }
 
   openNewZoneDialog(): void {
+    this.zoneId = null;
+    this.zoneCode = null;
+    this.parkingCostPerHour = null;
+    this.headerTitle = 'New parking zone';
     this.displayDialog = true;
   }
 
   closeDialog(): void {
+    this.zoneId = null;
+    this.zoneCode = null;
+    this.parkingCostPerHour = null;
+
     this.displayDialog = false;
   }
 
@@ -75,8 +91,16 @@ export class AdminComponent implements OnInit {
   listParkingZones(): void {
     this.appService.callRestGet('parkingZone/list').then(response => {
       this.isLoading = false;
-      this.parkingZones = response.map(parkingZone => ({label: parkingZone.zoneCode, value: parkingZone.id}));
+      this.parkingZones = response
+        .map(parkingZone => ({label: parkingZone.zoneCode, id: parkingZone.id, parkingCostPerHour: parkingZone.parkingCostPerHour}));
       console.log(this.parkingZones);
     });
+  }
+
+  listAllCars(): void {
+    this.appService.callRestGet('car/list')
+      .then(carResponse => {
+        this.allCars = carResponse;
+      });
   }
 }
